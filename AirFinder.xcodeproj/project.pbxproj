@@ -14,6 +14,11 @@
 		05FB55F81ABB1D3200184F29 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05FB55F71ABB1D3200184F29 /* Images.xcassets */; };
 		05FB55FB1ABB1D3200184F29 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05FB55F91ABB1D3200184F29 /* LaunchScreen.xib */; };
 		05FB56071ABB1D3200184F29 /* AirFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FB56061ABB1D3200184F29 /* AirFinderTests.swift */; };
+		05FB56111ABB2AC900184F29 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05FB56101ABB2AC900184F29 /* background.jpg */; };
+		05FB56161ABBCCC100184F29 /* hotel.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FB56121ABBCCC100184F29 /* hotel.png */; };
+		05FB56171ABBCCC100184F29 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FB56131ABBCCC100184F29 /* info.png */; };
+		05FB56181ABBCCC100184F29 /* flight.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FB56141ABBCCC100184F29 /* flight.png */; };
+		05FB56191ABBCCC100184F29 /* find.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FB56151ABBCCC100184F29 /* find.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +43,11 @@
 		05FB56001ABB1D3200184F29 /* AirFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		05FB56051ABB1D3200184F29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05FB56061ABB1D3200184F29 /* AirFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirFinderTests.swift; sourceTree = "<group>"; };
+		05FB56101ABB2AC900184F29 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
+		05FB56121ABBCCC100184F29 /* hotel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hotel.png; sourceTree = "<group>"; };
+		05FB56131ABBCCC100184F29 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
+		05FB56141ABBCCC100184F29 /* flight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flight.png; sourceTree = "<group>"; };
+		05FB56151ABBCCC100184F29 /* find.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = find.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +103,11 @@
 		05FB55EB1ABB1D3200184F29 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				05FB56121ABBCCC100184F29 /* hotel.png */,
+				05FB56131ABBCCC100184F29 /* info.png */,
+				05FB56141ABBCCC100184F29 /* flight.png */,
+				05FB56151ABBCCC100184F29 /* find.png */,
+				05FB56101ABB2AC900184F29 /* background.jpg */,
 				05FB55EC1ABB1D3200184F29 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -196,8 +211,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				05FB55F61ABB1D3200184F29 /* Main.storyboard in Resources */,
+				05FB56111ABB2AC900184F29 /* background.jpg in Resources */,
 				05FB55FB1ABB1D3200184F29 /* LaunchScreen.xib in Resources */,
+				05FB56161ABBCCC100184F29 /* hotel.png in Resources */,
+				05FB56191ABBCCC100184F29 /* find.png in Resources */,
 				05FB55F81ABB1D3200184F29 /* Images.xcassets in Resources */,
+				05FB56181ABBCCC100184F29 /* flight.png in Resources */,
+				05FB56171ABBCCC100184F29 /* info.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +431,7 @@
 				05FB560C1ABB1D3200184F29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		05FB560D1ABB1D3200184F29 /* Build configuration list for PBXNativeTarget "AirFinderTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +440,7 @@
 				05FB560F1ABB1D3200184F29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
