@@ -1,0 +1,9 @@
+#!/bin/sh
+
+alias w="which >/dev/null"
+
+export PATH="$PATH:$BASE/bin"
+
+w pod || die "Could not find pod! Consider pod, cocoapod or 'sudo gem install cocoapods'?"
+
+pod setup && pod install && pod update
