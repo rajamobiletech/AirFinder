@@ -9,6 +9,6 @@
 import Foundation
 
 struct Flight{
-    let category : String
+    let headquarter : String
     let name : String
 }

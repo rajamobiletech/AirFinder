@@ -92,12 +92,12 @@
 			children = (
 				05FB55ED1ABB1D3200184F29 /* AppDelegate.swift */,
 				05FB55F21ABB1D3200184F29 /* ViewController.swift */,
-				05FB55F41ABB1D3200184F29 /* Main.storyboard */,
 				051C6C9A1ABD224C00395A0E /* Flight.swift */,
 				051C6CAC1ABD3AE900395A0E /* FlightCell.swift */,
-				05FB55F71ABB1D3200184F29 /* Images.xcassets */,
+				05FB55F41ABB1D3200184F29 /* Main.storyboard */,
 				05FB55F91ABB1D3200184F29 /* LaunchScreen.xib */,
 				05FB55EF1ABB1D3200184F29 /* AirFinder.xcdatamodeld */,
+				05FB55F71ABB1D3200184F29 /* Images.xcassets */,
 				05FB55EB1ABB1D3200184F29 /* Supporting Files */,
 			);
 			path = AirFinder;
