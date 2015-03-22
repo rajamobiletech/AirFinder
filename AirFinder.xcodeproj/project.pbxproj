@@ -30,6 +30,7 @@
 		A46AB97D1ABEC41E000CDC00 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46AB97C1ABEC41E000CDC00 /* Parser.swift */; };
 		A46AB97F1ABEC7F9000CDC00 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46AB97E1ABEC7F9000CDC00 /* Route.swift */; };
 		A46AB9811ABEF159000CDC00 /* AllRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46AB9801ABEF159000CDC00 /* AllRoutes.swift */; };
+		A46AB9831ABF1564000CDC00 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46AB9821ABF1564000CDC00 /* Currency.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		A46AB97C1ABEC41E000CDC00 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parser.swift; path = Model/Parser.swift; sourceTree = "<group>"; };
 		A46AB97E1ABEC7F9000CDC00 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Route.swift; path = Model/Route.swift; sourceTree = "<group>"; };
 		A46AB9801ABEF159000CDC00 /* AllRoutes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllRoutes.swift; path = Model/AllRoutes.swift; sourceTree = "<group>"; };
+		A46AB9821ABF1564000CDC00 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Currency.swift; path = Model/Currency.swift; sourceTree = "<group>"; };
 		BF9DCC4FC7DE60A78664411C /* Pods-AirFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-AirFinder/Pods-AirFinder.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -180,6 +182,7 @@
 				A46AB97C1ABEC41E000CDC00 /* Parser.swift */,
 				A46AB97E1ABEC7F9000CDC00 /* Route.swift */,
 				A46AB9801ABEF159000CDC00 /* AllRoutes.swift */,
+				A46AB9821ABF1564000CDC00 /* Currency.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				053768A41ABE96B40007E446 /* NetworkManager.swift in Sources */,
 				0537689C1ABE75500007E446 /* FlightSearchResultTableViewController.swift in Sources */,
 				05FB55F11ABB1D3200184F29 /* AirFinder.xcdatamodeld in Sources */,
+				A46AB9831ABF1564000CDC00 /* Currency.swift in Sources */,
 				A46AB97F1ABEC7F9000CDC00 /* Route.swift in Sources */,
 				A46AB9741ABE98FA000CDC00 /* Constants.swift in Sources */,
 				053768A21ABE969E0007E446 /* Utility.swift in Sources */,

@@ -45,7 +45,7 @@ class Parser: NSObject {
         
         println(routesObj)
         
-        let allRoutesObj = AllRoutes(allRoutes: routesObj)
+        let allRoutesObj = AllRoutes(routes: routesObj)
         
         return allRoutesObj
     }

@@ -10,10 +10,11 @@ import UIKit
 
 class AllRoutes: NSObject {
    
-    var allRoutes: Array<Route>! = Array<Route>()
+    var currency: Array<Currency>! = Array<Currency>()
+    var routes: Array<Route>! = Array<Route>()
     
-    init(allRoutes: Array<Route>) {
+    init(routes: Array<Route>) {
      
-        self.allRoutes = allRoutes
+        self.routes = routes
     }
 }
