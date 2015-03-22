@@ -24,6 +24,9 @@ class Parser: NSObject {
                 var fareObjectsArray: Array<Fare>! = Array<Fare>()
                 var bestFareObjectsArray: Array<Fare>! = Array<Fare>()
                 
+                let airlineCode = itemRoute[FareOptions.Marketing_airline_code.rawValue] as String!
+                let id = itemRoute[CommonOptions.Id.rawValue] as String!
+                
                 if let itemsFare = itemRoute[FareOptions.Fares.rawValue] as? NSArray {
                     
                     fareObjectsArray = self.parseFare(itemsFare)
@@ -34,7 +37,8 @@ class Parser: NSObject {
                     bestFareObjectsArray = self.parseFare([itemsFare])
                 }
                 
-                let routeObj = Route(fare: fareObjectsArray, bestFare: bestFareObjectsArray) as Route
+                let routeObj = Route(fare: fareObjectsArray, bestFare: bestFareObjectsArray, outbound_segments: Array(), inbound_segments: Array(), marketing_airline_code: airlineCode, id: id) as Route
+                
                 routesObj.append(routeObj)
             } // End of Routes
         }  // End of Routes IF
@@ -55,6 +59,8 @@ class Parser: NSObject {
             let price = itemFare[FareOptions.Price.rawValue] as Double!
             let provider_code = itemFare[FareOptions.Provider_code.rawValue] as String!
             let description = itemFare[FareOptions.Description.rawValue] as String!
+            
+            //TODO - Need to be change alliance
             var alliance: String = ""
             /*if itemFare[FareOptions.Alliance.rawValue] != nil {
                 

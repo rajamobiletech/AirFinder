@@ -7,6 +7,7 @@ enum CommonOptions: String {
     case Fares_query_type = "fares_query_type"
     case Trips = "trips"
     case Routes = "routes"
+    case Currency_code = "currency_code"
 }
 
 enum TicketClassOptions: String {

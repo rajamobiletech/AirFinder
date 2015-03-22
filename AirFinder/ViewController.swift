@@ -88,7 +88,8 @@ class ViewController : UIViewController {
                     CommonOptions.Id.rawValue : testID,
                     CommonOptions.Search_id.rawValue : searchKey,
                     CommonOptions.Trip_id.rawValue : tripID,
-                    "fares_query_type": "route",
+                    CommonOptions.Fares_query_type.rawValue: "route",
+                    CommonOptions.Currency_code.rawValue: "INR"
                   ] as Dictionary<String, AnyObject>
                 
                 println(params)
@@ -248,7 +249,7 @@ class ViewController : UIViewController {
                 
                 var responseDict = data as Dictionary<String, AnyObject>
                 
-                var obj = parserObject.parseMainSearch(responseDict) as AllRoutes
+                var allRouteObj = parserObject.parseMainSearch(responseDict) as AllRoutes
                 
                 //Raja - do the UI display here.
                 
