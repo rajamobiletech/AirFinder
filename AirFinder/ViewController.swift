@@ -8,12 +8,15 @@
 
 import UIKit
 
-class ViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate {
+class ViewController : UIViewController {
     
     @IBOutlet var menuView:UIView!
     @IBOutlet var searchView:UIView!
     @IBOutlet var listView:UIView!
     @IBOutlet var flightTableView:UITableView!
+    
+    var flightSearchViewController: FlightSearchViewController!
+
     
     var flights = [Flight]()
     
@@ -24,6 +27,10 @@ class ViewController : UIViewController, UITableViewDataSource, UITableViewDeleg
     //self.flightTableView.registerClass(FlightCell.self, forCellReuseIdentifier: "FlightCell")
     
     override func viewDidLoad() {
+        
+        flightSearchViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FlightSearchViewController") as FlightSearchViewController
+        flightSearchViewController.view.frame = searchView.frame
+        searchView.addSubview(flightSearchViewController.view)
         
         // Set menu view border
         //        menuView.layer.cornerRadius = 30.0
@@ -36,7 +43,7 @@ class ViewController : UIViewController, UITableViewDataSource, UITableViewDeleg
         //        menuView.layer.shadowOffset = CGSizeMake(2.0, 2.0);
         
         // Sample Data for flightArray
-        self.flights = [Flight(headquarter:"Chennai", name:"Air India Cargo"),
+        /*self.flights = [Flight(headquarter:"Chennai", name:"Air India Cargo"),
             Flight(headquarter:"Mumbai", name:"Air Deccan"),
             Flight(headquarter:"Delhi", name:"Kingfisher Airlines"),
             Flight(headquarter:"Bangalore", name:"Air Mantra"),
@@ -84,12 +91,13 @@ class ViewController : UIViewController, UITableViewDataSource, UITableViewDeleg
             Flight(headquarter:"Delhi", name:"Tata Airlines"),
             Flight(headquarter:"Mumbai", name:"Vayudoot"),
             Flight(headquarter:"Bangalore", name:"VIF Airways"),
-            Flight(headquarter:"Delhi", name:"Vijay Airlines")]
+            Flight(headquarter:"Delhi", name:"Vijay Airlines")]*/
         
         // Reload the table
-        self.flightTableView.reloadData()
+      //  self.flightTableView.reloadData()
     }
     
+    /*
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == self.searchDisplayController!.searchResultsTableView {
             return self.filteredFlights.count
@@ -100,7 +108,7 @@ class ViewController : UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.flightTableView.dequeueReusableCellWithIdentifier(flightListCellIdentifier) as UITableViewCell
-        
+    
         var flight : Flight
         // Check to see whether the normal table or search results table is being displayed and set the Flight object from the appropriate array
         if tableView == self.searchDisplayController!.searchResultsTableView {
@@ -108,7 +116,7 @@ class ViewController : UIViewController, UITableViewDataSource, UITableViewDeleg
         } else {
             flight = flights[indexPath.row]
         }
-        
+    
         // Configure the flight cell
        // cell.flightTitleLabel.text = flight.name
        // cell.flightSubTitleLabel.text = flight.headquarter
@@ -159,6 +167,8 @@ class ViewController : UIViewController, UITableViewDataSource, UITableViewDeleg
             }
         }
     }
+
+*/
 }
 
 
