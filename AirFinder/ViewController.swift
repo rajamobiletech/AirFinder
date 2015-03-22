@@ -8,30 +8,61 @@
 
 import UIKit
 
-class ViewController : UIViewController {
+class ViewController : UIViewController, SearchViewControllerDelegate {
     
     @IBOutlet var menuView:UIView!
     @IBOutlet var searchView:UIView!
     @IBOutlet var listView:UIView!
-    @IBOutlet var flightTableView:UITableView!
     
     var flightSearchViewController: FlightSearchViewController!
+    
+    var flightSearchResultTableViewController: FlightSearchResultTableViewController!
 
     
     var flights = [Flight]()
     
     var filteredFlights = [Flight]()
     
-    let flightListCellIdentifier = "Cell"
+    var delegate:SearchViewControllerDelegate! = nil
     
-    //self.flightTableView.registerClass(FlightCell.self, forCellReuseIdentifier: "FlightCell")
+    func hideSearchView(controller: FlightSearchViewController, text: String) {
+        if self.searchView.frame.origin.x != -205{
+            UIView.animateWithDuration(1, animations: {
+                self.searchView.frame = CGRectMake(-205, 0, self.searchView.frame.width, self.searchView.frame.height)
+                self.listView.frame = CGRectMake(60, 0, self.listView.frame.width, self.listView.frame.height)
+                }, completion: {
+                    (value: Bool) in
+                   self.searchView.frame = CGRectMake(-205, 0, self.searchView.frame.width, self.searchView.frame.height)
+                    self.listView.frame = CGRectMake(60, 0, self.listView.frame.width, self.listView.frame.height)
+            })
+        }
+    }
+    
+    @IBAction func onFlightMenuPressed(AnyObject) {
+        slideSearchMenu()
+    }
+    
+    func slideSearchMenu() {
+        if self.searchView.frame.origin.x != 60 {
+            UIView.animateWithDuration(1, animations: {
+                self.searchView.frame = CGRectMake(60, 0, self.searchView.frame.width, self.searchView.frame.height)
+                self.listView.frame = CGRectMake(325, 0, self.listView.frame.width, self.listView.frame.height)
+                }, completion: {
+                    (value: Bool) in
+                    self.searchView.frame = CGRectMake(60, 0, self.searchView.frame.width, self.searchView.frame.height)
+                    self.listView.frame = CGRectMake(325, 0, self.listView.frame.width, self.listView.frame.height)
+            })
+        }
+    }
     
     override func viewDidLoad() {
         
+        // Load flight search view controller in search view container
         flightSearchViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FlightSearchViewController") as FlightSearchViewController
+        //self.searchView.frame = CGRectMake(60, 0, self.searchView.frame.width, self.searchView.frame.height)
         flightSearchViewController.view.frame = searchView.frame
         searchView.addSubview(flightSearchViewController.view)
-        
+        flightSearchViewController.delegate = self
         
         let departureCode = "MAA"
         let arrivalCode = "SIN"
@@ -100,7 +131,13 @@ class ViewController : UIViewController {
             //utilityObject.removeLoading()
         })
         
+
+        // Load flight search view controller in search view container
+        flightSearchResultTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FlightSearchResultTableViewController") as FlightSearchResultTableViewController
+        flightSearchResultTableViewController.view.frame = listView.frame
+        listView.addSubview(flightSearchResultTableViewController.view)
         
+
         // Set menu view border
         //        menuView.layer.cornerRadius = 30.0
         //        menuView.layer.borderColor = UIColor.redColor().CGColor

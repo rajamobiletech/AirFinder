@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        self.setInitialSetup()
         return true
     }
 
@@ -106,6 +107,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    func setInitialSetup() {
+        
+        let jsonPath = NSBundle.mainBundle().pathForResource(kAirportDetailsJsonName, ofType: "json") as String!
+        
+        var jsonData: NSData = NSData.dataWithContentsOfMappedFile(jsonPath)! as NSData
+        
+        var jsonDict: NSDictionary = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary!
+        let allDetails = jsonDict.objectForKey("status") as NSArray!
+        
+        for airportDetail in allDetails {
+            
+            let type = airportDetail.objectForKey("type") as String!
+            if type == kAirportType {
+                
+                airportDetails.append(airportDetail)
+            } else if type == kHotelCityType {
+                
+                hotelDetails.append(airportDetail)
+            }
+        }
+    }
+
 
 }
 
