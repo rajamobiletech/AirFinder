@@ -15,6 +15,7 @@ class Parser: NSObject {
         println(responseDict)
         
         var routesObj: Array<Route>! = Array<Route>()
+        var currencyObj: Currency! = Currency.alloc()
         
         if let itemsRoute = responseDict[CommonOptions.Routes.rawValue] as? NSArray {
             
@@ -45,7 +46,16 @@ class Parser: NSObject {
         
         println(routesObj)
         
-        let allRoutesObj = AllRoutes(routes: routesObj)
+        if let itemsCurrency = responseDict[FlightSearchOptions.Currency.rawValue] as? NSDictionary {
+        
+               currencyObj.code = itemsCurrency[CurrencyOptions.Code.rawValue] as String!
+                currencyObj.name = itemsCurrency[CurrencyOptions.Name.rawValue] as String!
+                currencyObj.symbol = itemsCurrency[CurrencyOptions.Symbol.rawValue] as String!
+                currencyObj.exchange_rate = itemsCurrency[CurrencyOptions.Exchange_rate.rawValue] as Double!
+            
+            print(currencyObj)
+        }
+        let allRoutesObj = AllRoutes(routes: routesObj, currency: currencyObj)
         
         return allRoutesObj
     }

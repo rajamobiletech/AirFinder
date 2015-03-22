@@ -10,12 +10,12 @@ import UIKit
 
 class Currency: NSObject {
    
-    var code = ""
-    var name = ""
-    var symbol = ""
-    var exchange_rate = ""
+    var code: String!
+    var name: String!
+    var symbol: String!
+    var exchange_rate: Double
     
-    init(code: String, name: String, symbol: String, exchange_rate: String) {
+    init(code: String, name: String, symbol: String, exchange_rate: Double) {
         
         self.code = code
         self.name = name

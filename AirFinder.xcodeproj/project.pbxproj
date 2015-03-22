@@ -31,6 +31,10 @@
 		A46AB97F1ABEC7F9000CDC00 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46AB97E1ABEC7F9000CDC00 /* Route.swift */; };
 		A46AB9811ABEF159000CDC00 /* AllRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46AB9801ABEF159000CDC00 /* AllRoutes.swift */; };
 		A46AB9831ABF1564000CDC00 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46AB9821ABF1564000CDC00 /* Currency.swift */; };
+		A46AB9851ABF17BC000CDC00 /* ProviderFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46AB9841ABF17BC000CDC00 /* ProviderFilter.swift */; };
+		A46AB9871ABF1856000CDC00 /* PriceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46AB9861ABF1856000CDC00 /* PriceFilter.swift */; };
+		A46AB9891ABF1A9E000CDC00 /* DurationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46AB9881ABF1A9E000CDC00 /* DurationFilter.swift */; };
+		A46AB98B1ABF1B2B000CDC00 /* AllianceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46AB98A1ABF1B2B000CDC00 /* AllianceFilter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +77,10 @@
 		A46AB97E1ABEC7F9000CDC00 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Route.swift; path = Model/Route.swift; sourceTree = "<group>"; };
 		A46AB9801ABEF159000CDC00 /* AllRoutes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllRoutes.swift; path = Model/AllRoutes.swift; sourceTree = "<group>"; };
 		A46AB9821ABF1564000CDC00 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Currency.swift; path = Model/Currency.swift; sourceTree = "<group>"; };
+		A46AB9841ABF17BC000CDC00 /* ProviderFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProviderFilter.swift; path = Model/ProviderFilter.swift; sourceTree = "<group>"; };
+		A46AB9861ABF1856000CDC00 /* PriceFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PriceFilter.swift; path = Model/PriceFilter.swift; sourceTree = "<group>"; };
+		A46AB9881ABF1A9E000CDC00 /* DurationFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DurationFilter.swift; path = Model/DurationFilter.swift; sourceTree = "<group>"; };
+		A46AB98A1ABF1B2B000CDC00 /* AllianceFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllianceFilter.swift; path = Model/AllianceFilter.swift; sourceTree = "<group>"; };
 		BF9DCC4FC7DE60A78664411C /* Pods-AirFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-AirFinder/Pods-AirFinder.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -183,6 +191,10 @@
 				A46AB97E1ABEC7F9000CDC00 /* Route.swift */,
 				A46AB9801ABEF159000CDC00 /* AllRoutes.swift */,
 				A46AB9821ABF1564000CDC00 /* Currency.swift */,
+				A46AB9841ABF17BC000CDC00 /* ProviderFilter.swift */,
+				A46AB9861ABF1856000CDC00 /* PriceFilter.swift */,
+				A46AB9881ABF1A9E000CDC00 /* DurationFilter.swift */,
+				A46AB98A1ABF1B2B000CDC00 /* AllianceFilter.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -342,10 +354,14 @@
 				05FB55F11ABB1D3200184F29 /* AirFinder.xcdatamodeld in Sources */,
 				A46AB9831ABF1564000CDC00 /* Currency.swift in Sources */,
 				A46AB97F1ABEC7F9000CDC00 /* Route.swift in Sources */,
+				A46AB9851ABF17BC000CDC00 /* ProviderFilter.swift in Sources */,
 				A46AB9741ABE98FA000CDC00 /* Constants.swift in Sources */,
 				053768A21ABE969E0007E446 /* Utility.swift in Sources */,
+				A46AB9871ABF1856000CDC00 /* PriceFilter.swift in Sources */,
 				05FB55EE1ABB1D3200184F29 /* AppDelegate.swift in Sources */,
+				A46AB9891ABF1A9E000CDC00 /* DurationFilter.swift in Sources */,
 				A46AB9791ABEC1B8000CDC00 /* Fare.swift in Sources */,
+				A46AB98B1ABF1B2B000CDC00 /* AllianceFilter.swift in Sources */,
 				A46AB97B1ABEC286000CDC00 /* DeepLink.swift in Sources */,
 				05AF01CE1ABDE7E30021935B /* FlightSearchViewController.swift in Sources */,
 				051C6CAD1ABD3AE900395A0E /* FlightCell.swift in Sources */,

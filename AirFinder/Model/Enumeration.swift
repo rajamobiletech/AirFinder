@@ -63,3 +63,26 @@ enum FareOptions: String {
     case Marketing_airline_code = "marketing_airline_code"
 }
 
+enum FlightSearchOptions: String {
+    
+    case Currency = "currency"
+}
+
+enum CurrencyOptions: String {
+    
+    case Code = "code"
+    case Name = "name"
+    case Symbol = "symbol"
+    case Exchange_rate = "exchange_rate"
+}
+
+
+
+
+
+
+
+
+
+
+
