@@ -25,8 +25,13 @@ class Trip: NSObject {
     var outbound_date = ""
     var inbound_date = ""
     var trip_type = ""
+    var departure_time = ""
+    var arrival_time = ""
+    var airline_code = ""
+    var airline_name = ""
+    var designator_code = ""
     
-    init(id: String, departure_code: String, departure_name: String, departure_state_code: String, departure_country_code: String, departure_country_name: String, arrival_code: String, arrival_name: String,arrival_city: Bool, departure_city: Bool, arrival_country_code: String, arrival_country_name: String, outbound_date: String, inbound_date: String, trip_type: String) {
+    init(id: String, departure_code: String, departure_name: String, departure_state_code: String, departure_country_code: String, departure_country_name: String, arrival_code: String, arrival_name: String,arrival_city: Bool, departure_city: Bool, arrival_country_code: String, arrival_country_name: String, outbound_date: String, inbound_date: String, trip_type: String, departure_time: String, arrival_time: String, airline_code: String,airline_name: String, designator_code: String) {
      
         self.id = id
         self.departure_code = departure_code
@@ -43,6 +48,11 @@ class Trip: NSObject {
         self.outbound_date = outbound_date
         self.inbound_date = inbound_date
         self.trip_type = trip_type
+        self.departure_time = departure_time
+        self.arrival_time = arrival_time
+        self.airline_code = airline_code
+        self.airline_code = airline_name
+        self.designator_code = designator_code
     }
     
 }

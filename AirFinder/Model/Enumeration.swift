@@ -34,6 +34,11 @@ enum TripOptions: String {
     case Outbound_date = "outbound_date"
     case Inbound_date = "inbound_date"
     case Trip_type = "trip_type"
+    case Departure_time = "departure_time"
+    case Arrival_time = "arrival_time"
+    case Airline_code = "Airline_code"
+    case Airline_name = "airline_name"
+    case Designator_code = "designator_code"
 }
 
 enum SearchOptions: String {
