@@ -56,6 +56,19 @@ class FlightSearchViewController: UIViewController, UITextFieldDelegate, UITable
         }
     }
     
+    @IBAction func onPersonCountTapped(sender: AnyObject) {
+        var tempButton = self.view.viewWithTag(sender.tag) as? UIButton
+        if sender.tag > 400 {
+            var tempLabel = self.view.viewWithTag(sender.tag - 200) as? UILabel
+            var exsistValue:Int? = tempLabel?.text?.toInt()
+            tempLabel?.text = (exsistValue! - 1) < 0 ? "0" : String(exsistValue! - 1)
+        } else {
+            var tempLabel = self.view.viewWithTag(sender.tag - 100) as? UILabel
+            let exsistValue:Int? = tempLabel?.text?.toInt()
+            tempLabel?.text = (exsistValue! + 1) > 9 ? "9" : String(exsistValue! + 1)
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
