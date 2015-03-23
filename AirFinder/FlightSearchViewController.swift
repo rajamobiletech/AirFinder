@@ -29,6 +29,17 @@ class FlightSearchViewController: UIViewController, UITextFieldDelegate, UITable
     @IBOutlet var datePicker: UIDatePicker!
     @IBOutlet var baseDateView: UIView!
     
+    @IBAction func onClassButtonTapped(sender:AnyObject) {
+        for var i = 501; i < 504; i++ {
+            var TempButton = self.view.viewWithTag(i) as? UIButton
+            TempButton?.selected = false
+            TempButton?.titleLabel?.font = UIFont.systemFontOfSize(12)
+        }
+        var classButton = self.view.viewWithTag(sender.tag) as? UIButton
+        classButton?.selected=true
+        classButton?.titleLabel?.font = UIFont.boldSystemFontOfSize(12);
+    }
+    
     @IBAction func onDateSelectionButtonTapped(sender: AnyObject) {
         currentButton = self.view.viewWithTag(sender.tag) as? UIButton
         baseDateView.frame = CGRectMake(baseDateView.frame.origin.x, currentButton.frame.origin.y + currentButton.frame.height, baseDateView.frame.width, baseDateView.frame.height)
@@ -45,7 +56,6 @@ class FlightSearchViewController: UIViewController, UITextFieldDelegate, UITable
     }
     
     @IBAction func onCheckboxTapped(sender: AnyObject) {
-        NSLog("sdksndknsd")
         var tempButton = self.view.viewWithTag(sender.tag) as? UIButton
         if (tempButton?.selected == true) {
             tempButton?.setTitle("0", forState: UIControlState.Normal)
@@ -73,6 +83,17 @@ class FlightSearchViewController: UIViewController, UITextFieldDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        var imageView = UIImageView(image: UIImage(named: "Departure_icon"))
+        imageView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        departureTextField.rightView = imageView
+        departureTextField.rightViewMode = UITextFieldViewMode.Always
+        
+        imageView = UIImageView(image: UIImage(named: "Arrival_icon"))
+        imageView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        ArrivalTextField.rightView = imageView
+        ArrivalTextField.rightViewMode = UITextFieldViewMode.Always
+        
+        
         autoTableView.hidden = true;
         departureTextField.delegate = self;
         ArrivalTextField.delegate = self;
