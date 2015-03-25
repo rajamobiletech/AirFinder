@@ -71,6 +71,20 @@ enum FareOptions: String {
 enum FlightSearchOptions: String {
     
     case Currency = "currency"
+    case Price_filter = "price_filter"
+    case Provider_filters = "provider_filters"
+    case Alliance_filters = "alliance_filters"
+    case Stop_type_filters = "stop_type_filters"
+    case Airline_filters = "airline_filters"
+    case Stopover_airport_filters = "stopover_airport_filters"
+    case Departure_airport_filters = "departure_airport_filters"
+    case Arrival_airport_filters = "arrival_airport_filters"
+    case Departure_day_time_filter = "departure_day_time_filter"
+    case Duration_filter = "duration_filter"
+    case Stopover_duration_filter = "stopover_duration_filter"
+    case Fares_query_type = "fares_query_type"
+    case Filtered_routes_count = "filtered_routes_count"
+    case Routes_count = "routes_count"
 }
 
 enum CurrencyOptions: String {
@@ -81,7 +95,17 @@ enum CurrencyOptions: String {
     case Exchange_rate = "exchange_rate"
 }
 
-
+enum FlightFilterOptions: String {
+    
+    case Min_usd = "min_usd"
+    case Max_usd = "max_usd"
+    case Min = "min"
+    case Max = "max"
+    case Code = "code"
+    case Name = "name"
+    case Price_min = "price_min"
+    case Count = "count"
+}
 
 
 

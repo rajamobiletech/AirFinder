@@ -15,7 +15,20 @@ class Parser: NSObject {
         println(responseDict)
         
         var routesObj: Array<Route>! = Array<Route>()
-        var currencyObj: Currency! = Currency.alloc()
+        var currencyObj = Currency.alloc()
+        var priceFilter = PriceFilter.alloc()
+        var providerFilterObjArr: Array<ProviderFilter>! = Array<ProviderFilter>()
+        var allianceFilterObjArr: Array<AllianceFilter>! = Array<AllianceFilter>()
+        var stopTypeFiltersObjArr: Array<ProviderFilter>! = Array<ProviderFilter>()
+        var airlineFiltersObjArr: Array<ProviderFilter>! = Array<ProviderFilter>()
+        var stopoverAirportFilterObjArr: Array<ProviderFilter>! = Array<ProviderFilter>()
+        var departureAirportFilterObjArr: Array<ProviderFilter>! = Array<ProviderFilter>()
+        var arrivalAirportFilterObjArr: Array<ProviderFilter>! = Array<ProviderFilter>()
+        
+        var departureDayTimeFilterObjArr: Array<DurationFilter>! = Array<DurationFilter>()
+        var durationFilterObjArr: Array<DurationFilter>! = Array<DurationFilter>()
+        var stopoverDurationFilterObjArr: Array<DurationFilter>! = Array<DurationFilter>()
+        
         var outboundSegmentObj: Array<Trip>! = Array<Trip>()
         var inboundSegmentObj: Array<Trip>! = Array<Trip>()
         
@@ -71,9 +84,104 @@ class Parser: NSObject {
                 currencyObj.exchange_rate = itemsCurrency[CurrencyOptions.Exchange_rate.rawValue] as Double!
             
             print(currencyObj)
-        }
+        }//END - //Currency parsing
         
-        let allRoutesObj = AllRoutes(routes: routesObj, currency: currencyObj)
+        //price_filter parsing
+        if let itemsPriceFilter = responseDict[FlightSearchOptions.Price_filter.rawValue] as? NSDictionary {
+            
+            priceFilter.min_usd = itemsPriceFilter[FlightFilterOptions.Min_usd.rawValue] as Double
+            priceFilter.max_usd = itemsPriceFilter[FlightFilterOptions.Max_usd.rawValue] as Double
+            priceFilter.min = itemsPriceFilter[FlightFilterOptions.Min.rawValue] as Double
+            priceFilter.max = itemsPriceFilter[FlightFilterOptions.Max.rawValue] as Double
+            
+            print(priceFilter)
+        }//END -  //price_filter parsing
+        
+        //provider_filters parsing
+        if let itemsProviders = responseDict[FlightSearchOptions.Provider_filters.rawValue] as? NSArray {
+            
+                providerFilterObjArr = self.parseProviderFilter(itemsProviders)
+        }//End - provider_filters parsing
+        
+        //alliance_filters parsing
+        if let itemsAllianProviders = responseDict[FlightSearchOptions.Alliance_filters.rawValue] as? NSArray {
+            
+            for itemProvider in itemsAllianProviders {
+                
+                var code: String = ""
+                var count: String = ""
+                
+                println(itemProvider[FlightFilterOptions.Code.rawValue])
+                println(itemProvider[FlightFilterOptions.Count.rawValue])
+                
+                if let code1 = itemProvider[FlightFilterOptions.Code.rawValue] as? String {
+                    code = code1
+                }
+                if let count1 = itemProvider[FlightFilterOptions.Count.rawValue] as? String {
+                    count = count1
+                }
+                
+                var allianFilterObj = AllianceFilter(code: code, count: count)
+                
+                allianceFilterObjArr.append(allianFilterObj)
+            }
+        }//End - alliance_filters parsing
+        
+        //stop_type_filters parsing
+        if let itemsstopProviders = responseDict[FlightSearchOptions.Stop_type_filters.rawValue] as? NSArray {
+        
+                stopTypeFiltersObjArr = self.parseProviderFilter(itemsstopProviders)
+        }//End - stop_type_filters parsing
+        
+        //airline_filters parsing
+        if let itemsAirlineProviders = responseDict[FlightSearchOptions.Airline_filters.rawValue] as? NSArray {
+            
+            airlineFiltersObjArr = self.parseProviderFilter(itemsAirlineProviders)
+        }//End - airline_filters parsing
+        
+        
+        //Stopover_airport_filters parsing
+        if let itemsstopOverProviders = responseDict[FlightSearchOptions.Stopover_airport_filters.rawValue] as? NSArray {
+            
+            stopoverAirportFilterObjArr = self.parseProviderFilter(itemsstopOverProviders)
+        }//End - Stopover_airport_filters parsing
+        
+        
+        //Departure_airport_filters parsing
+        if let itemssDepartAirport = responseDict[FlightSearchOptions.Departure_airport_filters.rawValue] as? NSArray {
+            
+            departureAirportFilterObjArr = self.parseProviderFilter(itemssDepartAirport)
+        }//End - Departure_airport_filters parsing
+        
+        //Arrival_airport_filters parsing
+        if let itemssArrivAirport = responseDict[FlightSearchOptions.Arrival_airport_filters.rawValue] as? NSArray {
+            
+            arrivalAirportFilterObjArr = self.parseProviderFilter(itemssArrivAirport)
+        }//End - Arrival_airport_filters parsing
+        
+        //Departure_day_time_filter parsing
+        if let itemssArrivAirport = responseDict[FlightSearchOptions.Departure_day_time_filter.rawValue] as? NSArray {
+            
+            departureDayTimeFilterObjArr = self.parseDurationFilter(itemssArrivAirport)
+        }//End - Departure_day_time_filter parsing
+        
+        //Duration_filter parsing
+        if let itemssArrivAirport = responseDict[FlightSearchOptions.Duration_filter.rawValue] as? NSArray {
+            
+            durationFilterObjArr = self.parseDurationFilter(itemssArrivAirport)
+        }//End - Duration_filter parsing
+        
+        //Stopover_duration_filter parsing
+        if let itemssArrivAirport = responseDict[FlightSearchOptions.Stopover_duration_filter.rawValue] as? NSArray {
+            
+            stopoverDurationFilterObjArr = self.parseDurationFilter(itemssArrivAirport)
+        }//End - Stopover_duration_filter parsing
+        
+        let faresQueryType = responseDict[FlightSearchOptions.Fares_query_type.rawValue] as String
+        let filteredRoutesCount = responseDict[FlightSearchOptions.Filtered_routes_count.rawValue] as Int
+        let routesCount = responseDict[FlightSearchOptions.Routes_count.rawValue] as Int
+        
+        let allRoutesObj = AllRoutes(routes: routesObj, currency: currencyObj, price_filter: priceFilter, alliance_filters: allianceFilterObjArr, provider_filters: providerFilterObjArr, stop_type_filters: stopTypeFiltersObjArr, airline_filters: airlineFiltersObjArr, stopover_airport_filters: stopoverAirportFilterObjArr, departure_airport_filters: departureAirportFilterObjArr, arrival_airport_filters: arrivalAirportFilterObjArr, departure_day_time_filter: departureDayTimeFilterObjArr, duration_filter: durationFilterObjArr, stopover_duration_filter: stopoverDurationFilterObjArr, fares_query_type: faresQueryType, query_id: "", filtered_routes_count: filteredRoutesCount, routes_count: routesCount)
         
         return allRoutesObj
     }
@@ -147,5 +255,62 @@ class Parser: NSObject {
         
         println(boundObjectsArray)
         return boundObjectsArray
+    }
+    
+    
+    private func parseProviderFilter(itemsProviders: NSArray) -> Array<ProviderFilter> {
+    
+     var providerObjectsArray: Array<ProviderFilter>! = Array<ProviderFilter>()
+    
+        for itemProvider in itemsProviders {
+            
+            var code :String = ""
+            var name:String = ""
+            var price_min:String = ""
+            
+            println(itemProvider[FlightFilterOptions.Code.rawValue])
+            println(itemProvider[FlightFilterOptions.Name.rawValue])
+            println(itemProvider[FlightFilterOptions.Price_min.rawValue])
+            
+            if let code1 = itemProvider[FlightFilterOptions.Code.rawValue] as? String {
+                code = code1
+            }
+            if let name1 = itemProvider[FlightFilterOptions.Name.rawValue] as? String {
+                name = name1
+            }
+            if let priceMin1 = itemProvider[FlightFilterOptions.Price_min.rawValue] as? String {
+                price_min = priceMin1
+            }
+            var providersFilterObj = ProviderFilter(code: code, name: name, price_min: price_min)
+            providerObjectsArray.append(providersFilterObj)
+        }
+        
+        return providerObjectsArray
+    }
+    
+    
+    private func parseDurationFilter(itemsProviders: NSArray) -> Array<DurationFilter> {
+        
+        var providerObjectsArray: Array<DurationFilter>! = Array<DurationFilter>()
+        
+        for itemProvider in itemsProviders {
+            
+            var min :String = ""
+            var max:String = ""
+            
+            println(itemProvider[FlightFilterOptions.Min.rawValue])
+            println(itemProvider[FlightFilterOptions.Max.rawValue])
+            
+            if let min1 = itemProvider[FlightFilterOptions.Min.rawValue] as? String {
+                min = min1
+            }
+            if let max1 = itemProvider[FlightFilterOptions.Max.rawValue] as? String {
+                max = max1
+            }
+            var durationFilterObj = DurationFilter(min: min, max: max)
+            providerObjectsArray.append(durationFilterObj)
+        }
+        
+        return providerObjectsArray
     }
 }

@@ -10,12 +10,12 @@ import UIKit
 
 class PriceFilter: NSObject {
    
-    var min_usd: String = ""
-    var max_usd: String = ""
-    var min: String = ""
-    var max: String = ""
+    var min_usd: Double
+    var max_usd: Double
+    var min: Double
+    var max: Double
     
-    init(min_usd: String, max_usd: String, min: String, max: String) {
+    init(min_usd: Double, max_usd: Double, min: Double, max: Double) {
        
         self.min_usd = min_usd
         self.max_usd = max_usd

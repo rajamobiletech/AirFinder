@@ -66,7 +66,7 @@ class ViewController : UIViewController, SearchViewControllerDelegate {
         
         let departureCode = "MAA"
         let arrivalCode = "SIN"
-        let outBoundDate = "2015-05-24"
+        let outBoundDate = "2015-05-25"
         let inBoundDate = "2015-05-29"
         
         var trip = Trip(id: "", departure_code: departureCode, departure_name: "", departure_state_code: "", departure_country_code: "", departure_country_name: "", arrival_code: arrivalCode, arrival_name: "", arrival_city: false, departure_city: false, arrival_country_code: "", arrival_country_name: "", outbound_date: outBoundDate, inbound_date: inBoundDate, trip_type: "", departure_time: "", arrival_time: "", airline_code: "", airline_name: "", designator_code: "")

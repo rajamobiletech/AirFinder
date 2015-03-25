@@ -64,7 +64,7 @@ class NetworkManager: NSObject {
             let httpResponse = response as NSHTTPURLResponse!
             let errorStatus = err == nil ? false : true
             
-            //completionHandler(data: data, urlResponse: response, error: errorStatus, httpCode: httpResponse.statusCode)
+            completionHandler(data: data, urlResponse: response, error: errorStatus, httpCode: httpResponse.statusCode)
         })
         task.resume()
     }
