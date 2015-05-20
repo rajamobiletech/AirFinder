@@ -40,6 +40,7 @@ class NetworkManager: NSObject {
                 
                 completionHandler(success: true, data: json!)
             } else {
+                println("error")
                 completionHandler(success: false, data: "")
             }
         })

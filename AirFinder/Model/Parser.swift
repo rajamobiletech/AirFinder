@@ -12,7 +12,7 @@ class Parser: NSObject {
     
     func parseMainSearch(responseDict: NSDictionary) -> AnyObject {
         
-        println(responseDict)
+        println("responseDict==>>\(responseDict)")
         
         var routesObj: Array<Route>! = Array<Route>()
         var currencyObj = Currency.alloc()

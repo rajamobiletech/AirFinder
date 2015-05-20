@@ -63,74 +63,6 @@ class ViewController : UIViewController, SearchViewControllerDelegate {
         flightSearchViewController.view.frame = searchView.frame
         searchView.addSubview(flightSearchViewController.view)
         flightSearchViewController.delegate = self
-        
-        let departureCode = "MAA"
-        let arrivalCode = "SIN"
-        let outBoundDate = "2015-06-25"
-        let inBoundDate = "2015-06-29"
-        
-        var trip = Trip(id: "", departure_code: departureCode, departure_name: "", departure_state_code: "", departure_country_code: "", departure_country_name: "", arrival_code: arrivalCode, arrival_name: "", arrival_city: false, departure_city: false, arrival_country_code: "", arrival_country_name: "", outbound_date: outBoundDate, inbound_date: inBoundDate, trip_type: "", departure_time: "", arrival_time: "", airline_code: "", airline_name: "", designator_code: "")
-        
-        var tripDict = [TripOptions.Departure_code.rawValue : trip.departure_code,
-            TripOptions.Arrival_code.rawValue : trip.arrival_code,
-            TripOptions.Outbound_date.rawValue : trip.outbound_date,
-            TripOptions.Inbound_date.rawValue : trip.inbound_date] as Dictionary<String, AnyObject>
-        
-        for trip in tripDict {
-           
-            print(trip)
-        }
-        
-        var tripArray = [tripDict] as Array
-        
-        //print(,,#departureCode)
-        
-        var params = [
-            CommonOptions.Trips.rawValue : tripArray,
-            SearchOptions.Adults_count.rawValue : 1,
-            SearchOptions.Children_count.rawValue : 1,
-            SearchOptions.Cabin.rawValue : TicketClassOptions.Economy.rawValue,
-            SearchOptions.User_country_code.rawValue : "IN",
-            SearchOptions.Country_site_code.rawValue : "IN"] as Dictionary<String, AnyObject>
-        
-        print(params)
-        
-        // utilityObject.addLoading(self)
-        networkManagerObject.searchFlightDetails(params, urlString: searchURL, completionHandler: {(success, data) -> () in
-            
-            println(data)
-            
-            if success {
-                
-                var responseDict = data as! Dictionary<String, AnyObject>
-                var tripID: String!
-                
-                if let items = responseDict[CommonOptions.Trips.rawValue] as? NSArray {
-                    for item in items {
-                        
-                        tripID = item[CommonOptions.Id.rawValue] as! String
-                    }
-                }
-                
-                let testID = String(Int(arc4random_uniform(10000)))
-                let searchKey = responseDict[CommonOptions.Id.rawValue] as! String
-                
-                params = [
-                    CommonOptions.Id.rawValue : testID,
-                    CommonOptions.Search_id.rawValue : searchKey,
-                    CommonOptions.Trip_id.rawValue : tripID,
-                    CommonOptions.Fares_query_type.rawValue: "route",
-                    CommonOptions.Currency_code.rawValue: "INR"
-                  ] as Dictionary<String, AnyObject>
-                
-                println(params)
-                self.mainSearch(params)
-            } else {
-                //DO failure operations
-            }
-            //utilityObject.removeLoading()
-        })
-        
 
         // Load flight search view controller in search view container
         flightSearchResultTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FlightSearchResultTableViewController") as! FlightSearchResultTableViewController
@@ -275,28 +207,7 @@ class ViewController : UIViewController, SearchViewControllerDelegate {
     }
 
 */
- 
-    func mainSearch(params: Dictionary<String, AnyObject>) {
-       
-        networkManagerObject.searchFlightDetails(params, urlString: fareURL, completionHandler: {(success, data) -> () in
-            
-            println(data)
-            
-            if success {
-                
-                var responseDict = data as! Dictionary<String, AnyObject>
-                
-                var allRouteObj = parserObject.parseMainSearch(responseDict) as! AllRoutes
-                
-                //Raja - do the UI display here.
-                
-            } else {
-                //DO failure operations
-            }
-            //utilityObject.removeLoading()
-        })
-    }
-    
+
 }
 
 

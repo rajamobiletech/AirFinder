@@ -21,6 +21,8 @@ class FlightSearchViewController: UIViewController, UITextFieldDelegate, UITable
     var currentTextField:UITextField!
     var currentButton:UIButton!
     
+    var searchQuery: [String:String] = ["DepartureCode":"","ArrivalCode":"","DepartureDate":"","ArrivalDate":"","Class":"", "AdultCount":"", "ChildCount":"", "NonStop":""]
+    
     @IBOutlet var departureTextField: UITextField!
     @IBOutlet var ArrivalTextField: UITextField!
     
@@ -37,7 +39,9 @@ class FlightSearchViewController: UIViewController, UITextFieldDelegate, UITable
         }
         var classButton = self.view.viewWithTag(sender.tag) as? UIButton
         classButton?.selected=true
-        classButton?.titleLabel?.font = UIFont.boldSystemFontOfSize(12);
+        classButton?.titleLabel?.font = UIFont.boldSystemFontOfSize(12)
+        var selectedClass = classButton?.currentTitle
+        searchQuery.updateValue(selectedClass!, forKey: "Class")
     }
     
     @IBAction func onDateSelectionButtonTapped(sender: AnyObject) {
@@ -53,6 +57,13 @@ class FlightSearchViewController: UIViewController, UITextFieldDelegate, UITable
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss";
         dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
         currentButton.setTitle(dateFormatter.stringFromDate(selectedDate), forState: UIControlState.Normal);
+        dateFormatter.dateFormat = "yyyy-MM-dd";
+        var saveDate:String = dateFormatter.stringFromDate(selectedDate) as String
+        if(currentButton.tag == 101) {
+            searchQuery.updateValue(saveDate, forKey: "DepartureDate")
+        }else if(currentButton.tag == 102) {
+            searchQuery.updateValue(saveDate, forKey: "ArrivalDate")
+        }
     }
     
     @IBAction func onCheckboxTapped(sender: AnyObject) {
@@ -64,6 +75,8 @@ class FlightSearchViewController: UIViewController, UITextFieldDelegate, UITable
             tempButton?.setTitle("1", forState: UIControlState.Normal)
             tempButton?.selected = true
         }
+        var stopSetting = tempButton?.currentTitle
+        searchQuery.updateValue(stopSetting!, forKey: "NonStop")
     }
     
     @IBAction func onPersonCountTapped(sender: AnyObject) {
@@ -72,10 +85,22 @@ class FlightSearchViewController: UIViewController, UITextFieldDelegate, UITable
             var tempLabel = self.view.viewWithTag(sender.tag - 200) as? UILabel
             var exsistValue:Int? = tempLabel?.text?.toInt()
             tempLabel?.text = (exsistValue! - 1) < 0 ? "0" : String(exsistValue! - 1)
+            var count = tempLabel?.text
+            if(tempLabel?.tag == 201) {
+                searchQuery.updateValue(count!, forKey: "AdultCount")
+            }else {
+                searchQuery.updateValue(count!, forKey: "ChildCount")
+            }
         } else {
             var tempLabel = self.view.viewWithTag(sender.tag - 100) as? UILabel
             let exsistValue:Int? = tempLabel?.text?.toInt()
             tempLabel?.text = (exsistValue! + 1) > 9 ? "9" : String(exsistValue! + 1)
+            var count = tempLabel?.text
+            if(tempLabel?.tag == 201) {
+                searchQuery.updateValue(count!, forKey: "AdultCount")
+            }else {
+                searchQuery.updateValue(count!, forKey: "ChildCount")
+            }
         }
     }
     
@@ -118,8 +143,76 @@ class FlightSearchViewController: UIViewController, UITextFieldDelegate, UITable
     }
     
     @IBAction func onSearchFlightTapped(AnyObject) {
+        
+        let departureCode = searchQuery["DepartureCode"]
+        let arrivalCode = searchQuery["ArrivalCode"]
+        let outBoundDate = searchQuery["DepartureDate"]
+        let inBoundDate = searchQuery["ArrivalDate"]
+        
+        var trip = Trip(id: "", departure_code: departureCode!, departure_name: "", departure_state_code: "", departure_country_code: "", departure_country_name: "", arrival_code: arrivalCode!, arrival_name: "", arrival_city: false, departure_city: false, arrival_country_code: "", arrival_country_name: "", outbound_date: outBoundDate!, inbound_date: inBoundDate!, trip_type: "", departure_time: "", arrival_time: "", airline_code: "", airline_name: "", designator_code: "")
+        
+        var tripDict = [TripOptions.Departure_code.rawValue : trip.departure_code,
+            TripOptions.Arrival_code.rawValue : trip.arrival_code,
+            TripOptions.Outbound_date.rawValue : trip.outbound_date,
+            TripOptions.Inbound_date.rawValue : trip.inbound_date] as Dictionary<String, AnyObject>
+        
+        for trip in tripDict {
+            
+            print(trip)
+        }
+        
+        var tripArray = [tripDict] as Array
+        
+        var params = [
+            CommonOptions.Trips.rawValue : tripArray,
+            SearchOptions.Adults_count.rawValue : searchQuery["AdultCount"]!,
+            SearchOptions.Children_count.rawValue : searchQuery["ChildCount"]!,
+            SearchOptions.Cabin.rawValue : TicketClassOptions.Economy.rawValue,
+            SearchOptions.User_country_code.rawValue : "IN",
+            SearchOptions.Country_site_code.rawValue : "IN"] as Dictionary<String, AnyObject>
+        
+        print(params)
+        
+        // utilityObject.addLoading(self)
+        networkManagerObject.searchFlightDetails(params, urlString: searchURL, completionHandler: {(success, data) -> () in
+            
+            //println(data)
+            
+            if success {
+                println("Success response")
+                
+                var responseDict = data as! Dictionary<String, AnyObject>
+                var tripID: String!
+                
+                if let items = responseDict[CommonOptions.Trips.rawValue] as? NSArray {
+                    for item in items {
+                        
+                        tripID = item[CommonOptions.Id.rawValue] as! String
+                    }
+                }
+                
+                let testID = String(Int(arc4random_uniform(10000)))
+                let searchKey = responseDict[CommonOptions.Id.rawValue] as! String
+                
+                params = [
+                    CommonOptions.Id.rawValue : testID,
+                    CommonOptions.Search_id.rawValue : searchKey,
+                    CommonOptions.Trip_id.rawValue : tripID,
+                    CommonOptions.Fares_query_type.rawValue: "route",
+                    CommonOptions.Currency_code.rawValue: "INR"
+                    ] as Dictionary<String, AnyObject>
+                
+                //println(params)
+                self.mainSearch(params)
+            } else {
+                //DO failure operations
+            }
+            //utilityObject.removeLoading()
+        })
+        
         delegate!.hideSearchView(self, text: "Hide")
     }
+
     /*
     // MARK: - Navigation
 
@@ -151,8 +244,8 @@ class FlightSearchViewController: UIViewController, UITextFieldDelegate, UITable
         let cell = self.autoTableView.dequeueReusableCellWithIdentifier("AutoSuggestionCell") as! AutoSuggestionCell
         
         let infoDict = currentData[indexPath.row] as! NSDictionary
-        cell.AirportName?.text = infoDict.objectForKey("name") as! String
-        cell.AirportCode?.text = infoDict.objectForKey("code") as! String
+        cell.AirportName?.text = infoDict.objectForKey("name") as? String
+        cell.AirportCode?.text = infoDict.objectForKey("code") as? String
         return cell
     }
     
@@ -163,6 +256,11 @@ class FlightSearchViewController: UIViewController, UITextFieldDelegate, UITable
         currentTextField.text = airportCode + " - " + airportName
         autoTableView.hidden = true
         currentTextField.resignFirstResponder()
+        if(currentTextField.tag == 11) {
+            searchQuery.updateValue(airportCode, forKey: "DepartureCode")
+        }else if(currentTextField.tag == 12) {
+            searchQuery.updateValue(airportCode, forKey: "ArrivalCode")
+        }
 
     }
     // MARK: UITextFieldDelegate methods
@@ -222,5 +320,26 @@ class FlightSearchViewController: UIViewController, UITextFieldDelegate, UITable
             }
         }
         return airportArray
+    }
+    
+    func mainSearch(params: Dictionary<String, AnyObject>) {
+        
+        networkManagerObject.searchFlightDetails(params, urlString: fareURL, completionHandler: {(success, data) -> () in
+            
+            println("searchFlightDetails = \(data)")
+            
+            if success {
+                
+                var responseDict = data as! Dictionary<String, AnyObject>
+                
+                var allRouteObj = parserObject.parseMainSearch(responseDict) as! AllRoutes
+                
+                //Raja - do the UI display here.
+                
+            } else {
+                //DO failure operations
+            }
+            //utilityObject.removeLoading()
+        })
     }
 }
