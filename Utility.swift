@@ -30,9 +30,9 @@ class Utility: NSObject {
     
     func addLoading(controller: AnyObject) {
         
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
-        self.controller = controller as UIViewController
+        self.controller = controller as! UIViewController
         self.loaderView = UIView(frame: CGRectMake(appDelegate.window!.bounds.size.width/2 - 25, appDelegate.window!.bounds.size.height/2 - 25, 50, 50))
         self.loaderView.backgroundColor = UIColor.blackColor()
         self.loaderView.layer.cornerRadius = 5.0

@@ -61,7 +61,7 @@ class NetworkManager: NSObject {
         
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             
-            let httpResponse = response as NSHTTPURLResponse!
+            let httpResponse = response as! NSHTTPURLResponse!
             let errorStatus = err == nil ? false : true
             
             completionHandler(data: data, urlResponse: response, error: errorStatus, httpCode: httpResponse.statusCode)

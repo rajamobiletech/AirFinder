@@ -40,8 +40,8 @@ class Parser: NSObject {
                 var fareObjectsArray: Array<Fare>! = Array<Fare>()
                 var bestFareObjectsArray: Array<Fare>! = Array<Fare>()
                 
-                let airlineCode = itemRoute[FareOptions.Marketing_airline_code.rawValue] as String!
-                let id = itemRoute[CommonOptions.Id.rawValue] as String!
+                let airlineCode = itemRoute[FareOptions.Marketing_airline_code.rawValue] as! String!
+                let id = itemRoute[CommonOptions.Id.rawValue] as! String!
                 
                 //Fare parsing
                 if let itemsFare = itemRoute[FareOptions.Fares.rawValue] as? NSArray {
@@ -78,10 +78,10 @@ class Parser: NSObject {
         //Currency parsing
         if let itemsCurrency = responseDict[FlightSearchOptions.Currency.rawValue] as? NSDictionary {
         
-               currencyObj.code = itemsCurrency[CurrencyOptions.Code.rawValue] as String!
-                currencyObj.name = itemsCurrency[CurrencyOptions.Name.rawValue] as String!
-                currencyObj.symbol = itemsCurrency[CurrencyOptions.Symbol.rawValue] as String!
-                currencyObj.exchange_rate = itemsCurrency[CurrencyOptions.Exchange_rate.rawValue] as Double!
+               currencyObj.code = itemsCurrency[CurrencyOptions.Code.rawValue] as! String!
+                currencyObj.name = itemsCurrency[CurrencyOptions.Name.rawValue] as? String!
+                currencyObj.symbol = itemsCurrency[CurrencyOptions.Symbol.rawValue] as? String!
+                currencyObj.exchange_rate = (itemsCurrency[CurrencyOptions.Exchange_rate.rawValue] as? Double!)!
             
             print(currencyObj)
         }//END - //Currency parsing
@@ -89,10 +89,10 @@ class Parser: NSObject {
         //price_filter parsing
         if let itemsPriceFilter = responseDict[FlightSearchOptions.Price_filter.rawValue] as? NSDictionary {
             
-            priceFilter.min_usd = itemsPriceFilter[FlightFilterOptions.Min_usd.rawValue] as Double
-            priceFilter.max_usd = itemsPriceFilter[FlightFilterOptions.Max_usd.rawValue] as Double
-            priceFilter.min = itemsPriceFilter[FlightFilterOptions.Min.rawValue] as Double
-            priceFilter.max = itemsPriceFilter[FlightFilterOptions.Max.rawValue] as Double
+            priceFilter.min_usd = (itemsPriceFilter[FlightFilterOptions.Min_usd.rawValue] as? Double)!
+            priceFilter.max_usd = (itemsPriceFilter[FlightFilterOptions.Max_usd.rawValue] as? Double)!
+            priceFilter.min = (itemsPriceFilter[FlightFilterOptions.Min.rawValue] as? Double)!
+            priceFilter.max = (itemsPriceFilter[FlightFilterOptions.Max.rawValue] as? Double)!
             
             print(priceFilter)
         }//END -  //price_filter parsing
@@ -177,11 +177,11 @@ class Parser: NSObject {
             stopoverDurationFilterObjArr = self.parseDurationFilter(itemssArrivAirport)
         }//End - Stopover_duration_filter parsing
         
-        let faresQueryType = responseDict[FlightSearchOptions.Fares_query_type.rawValue] as String
-        let filteredRoutesCount = responseDict[FlightSearchOptions.Filtered_routes_count.rawValue] as Int
-        let routesCount = responseDict[FlightSearchOptions.Routes_count.rawValue] as Int
+        let faresQueryType = responseDict[FlightSearchOptions.Fares_query_type.rawValue] as? String
+        let filteredRoutesCount = responseDict[FlightSearchOptions.Filtered_routes_count.rawValue] as? Int
+        let routesCount = responseDict[FlightSearchOptions.Routes_count.rawValue] as? Int
         
-        let allRoutesObj = AllRoutes(routes: routesObj, currency: currencyObj, price_filter: priceFilter, alliance_filters: allianceFilterObjArr, provider_filters: providerFilterObjArr, stop_type_filters: stopTypeFiltersObjArr, airline_filters: airlineFiltersObjArr, stopover_airport_filters: stopoverAirportFilterObjArr, departure_airport_filters: departureAirportFilterObjArr, arrival_airport_filters: arrivalAirportFilterObjArr, departure_day_time_filter: departureDayTimeFilterObjArr, duration_filter: durationFilterObjArr, stopover_duration_filter: stopoverDurationFilterObjArr, fares_query_type: faresQueryType, query_id: "", filtered_routes_count: filteredRoutesCount, routes_count: routesCount)
+        let allRoutesObj = AllRoutes(routes: routesObj, currency: currencyObj, price_filter: priceFilter, alliance_filters: allianceFilterObjArr, provider_filters: providerFilterObjArr, stop_type_filters: stopTypeFiltersObjArr, airline_filters: airlineFiltersObjArr, stopover_airport_filters: stopoverAirportFilterObjArr, departure_airport_filters: departureAirportFilterObjArr, arrival_airport_filters: arrivalAirportFilterObjArr, departure_day_time_filter: departureDayTimeFilterObjArr, duration_filter: durationFilterObjArr, stopover_duration_filter: stopoverDurationFilterObjArr, fares_query_type: faresQueryType!, query_id: "", filtered_routes_count: filteredRoutesCount!, routes_count: routesCount!)
         
         return allRoutesObj
     }
@@ -193,9 +193,9 @@ class Parser: NSObject {
         //looping Fares
         for itemFare  in itemsFare {
             
-            let price = itemFare[FareOptions.Price.rawValue] as Double!
-            let provider_code = itemFare[FareOptions.Provider_code.rawValue] as String!
-            let description = itemFare[FareOptions.Description.rawValue] as String!
+            let price = itemFare[FareOptions.Price.rawValue] as? Double!
+            let provider_code = itemFare[FareOptions.Provider_code.rawValue] as? String!
+            let description = itemFare[FareOptions.Description.rawValue] as? String!
             
             //TODO - Need to be change alliance
             var alliance: String = ""
@@ -203,7 +203,7 @@ class Parser: NSObject {
                 
               alliance = itemFare[FareOptions.Alliance.rawValue] as String
             }*/
-            let deeplink = itemFare[FareOptions.Deeplink.rawValue] as String!
+            let deeplink = itemFare[FareOptions.Deeplink.rawValue] as? String!
             
             var trip_id: String!
             var route: String!
@@ -213,16 +213,16 @@ class Parser: NSObject {
             
             if var itemsDeep = itemFare[FareOptions.Deeplink_params.rawValue] as? NSDictionary {
                 
-                trip_id =  itemsDeep[CommonOptions.Trip_id.rawValue] as String!
-                route =  itemsDeep[FareOptions.Route.rawValue] as String!
-                search_id = itemsDeep[CommonOptions.Search_id.rawValue] as String!
-                placement_type = itemsDeep[FareOptions.Placement_type.rawValue] as String!
-                fare_id = itemsDeep[FareOptions.Fare_id.rawValue] as String!
+                trip_id =  itemsDeep[CommonOptions.Trip_id.rawValue] as! String
+                route =  itemsDeep[FareOptions.Route.rawValue] as! String
+                search_id = itemsDeep[CommonOptions.Search_id.rawValue] as! String
+                placement_type = itemsDeep[FareOptions.Placement_type.rawValue] as! String
+                fare_id = itemsDeep[FareOptions.Fare_id.rawValue] as! String
             }
             
-            var deepLinkObj = DeepLink(deeplinkURL: deeplink, trip_id: trip_id, route: route, search_id: search_id, placement_type: placement_type, fare_id: fare_id) as DeepLink
+            var deepLinkObj = DeepLink(deeplinkURL: deeplink!, trip_id: trip_id, route: route, search_id: search_id, placement_type: placement_type, fare_id: fare_id) as DeepLink
             
-            let fare = Fare(deepLink: deepLinkObj, price: price, provider_code: provider_code, description1: description, alliance: alliance)
+            let fare = Fare(deepLink: deepLinkObj, price: price!, provider_code: provider_code!, description1: description!, alliance: alliance)
             
             fareObjectsArray.append(fare)
         }
@@ -238,17 +238,17 @@ class Parser: NSObject {
         //looping Fares
         for itemBound  in itemsBound {
             
-            let departure_code = itemBound[TripOptions.Departure_code.rawValue] as String!
-            let arrival_code = itemBound[TripOptions.Arrival_code.rawValue] as String!
-            let departure_time = itemBound[TripOptions.Departure_time.rawValue] as String!
-            let arrival_time = itemBound[TripOptions.Arrival_time.rawValue] as String!
-            let designator_code = itemBound[TripOptions.Designator_code.rawValue] as String!
-            let airline_code = itemBound[TripOptions.Airline_code.rawValue] as String!
-            let departure_name = itemBound[TripOptions.Departure_name.rawValue] as String!
-            let arrival_name = itemBound[TripOptions.Arrival_name.rawValue] as String!
-            let airline_name = itemBound[TripOptions.Airline_name.rawValue] as String!
+            let departure_code = itemBound[TripOptions.Departure_code.rawValue] as? String
+            let arrival_code = itemBound[TripOptions.Arrival_code.rawValue] as? String
+            let departure_time = itemBound[TripOptions.Departure_time.rawValue] as? String
+            let arrival_time = itemBound[TripOptions.Arrival_time.rawValue] as? String
+            let designator_code = itemBound[TripOptions.Designator_code.rawValue] as? String
+            let airline_code = itemBound[TripOptions.Airline_code.rawValue] as? String
+            let departure_name = itemBound[TripOptions.Departure_name.rawValue] as? String
+            let arrival_name = itemBound[TripOptions.Arrival_name.rawValue] as? String
+            let airline_name = itemBound[TripOptions.Airline_name.rawValue] as? String
             
-            let trip = Trip(id: "", departure_code: departure_code, departure_name: departure_name, departure_state_code: "", departure_country_code: "", departure_country_name: "", arrival_code: arrival_code, arrival_name: arrival_name, arrival_city: false, departure_city: false, arrival_country_code: "", arrival_country_name: "", outbound_date: "", inbound_date: "", trip_type: "", departure_time: departure_time, arrival_time: arrival_time, airline_code: arrival_code, airline_name: airline_name, designator_code: designator_code) as Trip
+            let trip = Trip(id: "", departure_code: departure_code!, departure_name: departure_name!, departure_state_code: "", departure_country_code: "", departure_country_name: "", arrival_code: arrival_code!, arrival_name: arrival_name!, arrival_city: false, departure_city: false, arrival_country_code: "", arrival_country_name: "", outbound_date: "", inbound_date: "", trip_type: "", departure_time: departure_time!, arrival_time: arrival_time!, airline_code: arrival_code!, airline_name: airline_name!, designator_code: designator_code!) as Trip
             
             boundObjectsArray.append(trip)
         }

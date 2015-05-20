@@ -58,7 +58,7 @@ class ViewController : UIViewController, SearchViewControllerDelegate {
     override func viewDidLoad() {
         
         // Load flight search view controller in search view container
-        flightSearchViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FlightSearchViewController") as FlightSearchViewController
+        flightSearchViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FlightSearchViewController") as! FlightSearchViewController
         //self.searchView.frame = CGRectMake(60, 0, self.searchView.frame.width, self.searchView.frame.height)
         flightSearchViewController.view.frame = searchView.frame
         searchView.addSubview(flightSearchViewController.view)
@@ -66,8 +66,8 @@ class ViewController : UIViewController, SearchViewControllerDelegate {
         
         let departureCode = "MAA"
         let arrivalCode = "SIN"
-        let outBoundDate = "2015-05-25"
-        let inBoundDate = "2015-05-29"
+        let outBoundDate = "2015-06-25"
+        let inBoundDate = "2015-06-29"
         
         var trip = Trip(id: "", departure_code: departureCode, departure_name: "", departure_state_code: "", departure_country_code: "", departure_country_name: "", arrival_code: arrivalCode, arrival_name: "", arrival_city: false, departure_city: false, arrival_country_code: "", arrival_country_name: "", outbound_date: outBoundDate, inbound_date: inBoundDate, trip_type: "", departure_time: "", arrival_time: "", airline_code: "", airline_name: "", designator_code: "")
         
@@ -102,18 +102,18 @@ class ViewController : UIViewController, SearchViewControllerDelegate {
             
             if success {
                 
-                var responseDict = data as Dictionary<String, AnyObject>
+                var responseDict = data as! Dictionary<String, AnyObject>
                 var tripID: String!
                 
                 if let items = responseDict[CommonOptions.Trips.rawValue] as? NSArray {
                     for item in items {
                         
-                        tripID = item[CommonOptions.Id.rawValue] as String
+                        tripID = item[CommonOptions.Id.rawValue] as! String
                     }
                 }
                 
                 let testID = String(Int(arc4random_uniform(10000)))
-                let searchKey = responseDict[CommonOptions.Id.rawValue] as String
+                let searchKey = responseDict[CommonOptions.Id.rawValue] as! String
                 
                 params = [
                     CommonOptions.Id.rawValue : testID,
@@ -133,7 +133,7 @@ class ViewController : UIViewController, SearchViewControllerDelegate {
         
 
         // Load flight search view controller in search view container
-        flightSearchResultTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FlightSearchResultTableViewController") as FlightSearchResultTableViewController
+        flightSearchResultTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FlightSearchResultTableViewController") as! FlightSearchResultTableViewController
         flightSearchResultTableViewController.view.frame = listView.frame
         listView.addSubview(flightSearchResultTableViewController.view)
         
@@ -284,9 +284,9 @@ class ViewController : UIViewController, SearchViewControllerDelegate {
             
             if success {
                 
-                var responseDict = data as Dictionary<String, AnyObject>
+                var responseDict = data as! Dictionary<String, AnyObject>
                 
-                var allRouteObj = parserObject.parseMainSearch(responseDict) as AllRoutes
+                var allRouteObj = parserObject.parseMainSearch(responseDict) as! AllRoutes
                 
                 //Raja - do the UI display here.
                 

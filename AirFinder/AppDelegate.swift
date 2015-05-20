@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.raja.AirFinder" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as NSURL
+        return urls[urls.count-1] as! NSURL
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -112,14 +112,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let jsonPath = NSBundle.mainBundle().pathForResource(kAirportDetailsJsonName, ofType: "json") as String!
         
-        var jsonData: NSData = NSData.dataWithContentsOfMappedFile(jsonPath)! as NSData
+        var jsonData: NSData = NSData.dataWithContentsOfMappedFile(jsonPath) as! NSData
         
-        var jsonDict: NSDictionary = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary!
-        let allDetails = jsonDict.objectForKey("status") as NSArray!
+        var jsonDict: NSDictionary = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+        let allDetails = jsonDict.objectForKey("status") as! NSArray!
         
         for airportDetail in allDetails {
             
-            let type = airportDetail.objectForKey("type") as String!
+            let type = airportDetail.objectForKey("type") as! String!
             if type == kAirportType {
                 
                 airportDetails.append(airportDetail)

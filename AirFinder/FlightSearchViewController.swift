@@ -148,18 +148,18 @@ class FlightSearchViewController: UIViewController, UITextFieldDelegate, UITable
         
        // let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "AutoSuggestionCell")
         
-        let cell = self.autoTableView.dequeueReusableCellWithIdentifier("AutoSuggestionCell") as AutoSuggestionCell
+        let cell = self.autoTableView.dequeueReusableCellWithIdentifier("AutoSuggestionCell") as! AutoSuggestionCell
         
-        let infoDict = currentData[indexPath.row] as NSDictionary
-        cell.AirportName?.text = infoDict.objectForKey("name") as String!
-        cell.AirportCode?.text = infoDict.objectForKey("code") as String!
+        let infoDict = currentData[indexPath.row] as! NSDictionary
+        cell.AirportName?.text = infoDict.objectForKey("name") as! String
+        cell.AirportCode?.text = infoDict.objectForKey("code") as! String
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let infoDict = currentData[indexPath.row] as NSDictionary
-        var airportName = infoDict.objectForKey("name") as String!
-        var airportCode = infoDict.objectForKey("code") as String!
+        let infoDict = currentData[indexPath.row] as! NSDictionary
+        var airportName = infoDict.objectForKey("name") as! String
+        var airportCode = infoDict.objectForKey("code") as! String
         currentTextField.text = airportCode + " - " + airportName
         autoTableView.hidden = true
         currentTextField.resignFirstResponder()
@@ -215,8 +215,8 @@ class FlightSearchViewController: UIViewController, UITextFieldDelegate, UITable
     func sortAirportUsingName(name: String,from: NSArray) -> Array<AnyObject> {
         var airportArray: Array<AnyObject> = Array<AnyObject>()
         for airportDetail in from {
-            let airportName = airportDetail.objectForKey("name") as String
-            let airportCode = airportDetail.objectForKey("code") as String
+            let airportName = airportDetail.objectForKey("name") as! String
+            let airportCode = airportDetail.objectForKey("code") as! String
             if airportName.lowercaseString.rangeOfString(name) != nil || airportCode.lowercaseString.rangeOfString(name) != nil {
                 airportArray.append(airportDetail)
             }
